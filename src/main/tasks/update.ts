@@ -23,7 +23,7 @@ export class UpdateTask {
             console.info(`cd ${step.pkg.dir}`);
             const installArgs = step.deps.map(_ => _ + '@latest').join(' ');
             console.info(`npm i --save ${installArgs}`);
-            console.info(`git commit -a 'update: ${step.deps.join(' ')}'`);
+            console.info(`git commit -a -m 'update: ${step.deps.join(' ')}'`);
             console.info(`git push`);
             console.info(`npm version ${versionBump}`);
         }
