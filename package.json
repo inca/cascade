@@ -2,7 +2,7 @@
     "name": "@inca/cascade",
     "version": "1.0.0",
     "type": "module",
-    "description": "Cascade update & republish Node.js packages",
+    "description": "Cascade update & publish Node.js packages",
     "exports": {
         ".": "./out/main/index.js"
     },

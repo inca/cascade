@@ -15,8 +15,8 @@ export function main() {
     const program = new Command('nodescript')
         .version(pkg.version);
 
-    program.command('update')
-        .description('Update specified dependencies to latest version and republish everything')
+    program.command('plan')
+        .description('Display update plan')
         .argument('<deps>', 'comma-separated list of packages to update')
         .option('-r, --root <root>', 'Root directory', process.cwd())
         .option('-e, --env <env>', 'Env file to use', '.env')
@@ -25,7 +25,25 @@ export function main() {
                 config({ path: opts.env });
                 const app = new App(opts.root);
                 await app.init();
-                await app.updateTask.run((deps || '').split(','));
+                await app.updateTask.show((deps || '').split(','));
+            } catch (err: any) {
+                console.error(chalk.red(err.message));
+                process.exit(1);
+            }
+        });
+
+    program.command('update')
+        .description('Update specified dependencies to latest version and republish everything')
+        .argument('<deps>', 'comma-separated list of packages to update')
+        .option('-v, --version <version>', 'version bump (major|minor|patch)', 'minor')
+        .option('-r, --root <root>', 'Root directory', process.cwd())
+        .option('-e, --env <env>', 'Env file to use', '.env')
+        .action(async (deps, opts) => {
+            try {
+                config({ path: opts.env });
+                const app = new App(opts.root);
+                await app.init();
+                await app.updateTask.run((deps || '').split(','), opts.version);
             } catch (err: any) {
                 console.error(chalk.red(err.message));
                 process.exit(1);
