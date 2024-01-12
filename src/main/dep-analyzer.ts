@@ -9,6 +9,9 @@ export class Analyzer {
     buildUpdatePlan(deps: string[]) {
         const plan = new Map<string, string[]>();
         this.buildPlanRecursive(deps, plan);
+        for (const dep of deps) {
+            plan.delete(dep);
+        }
         return this.planToSteps(plan);
     }
 
