@@ -1,6 +1,6 @@
 {
     "name": "@inca/cascade",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "type": "module",
     "description": "Cascade update & publish Node.js packages",
     "exports": {
